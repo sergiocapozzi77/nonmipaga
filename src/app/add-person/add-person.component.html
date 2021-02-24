@@ -1,0 +1,73 @@
+<p-card
+  header="Advanced Card"
+  subheader="Card Subheader"
+  [style]="{ width: '360px' }"
+  styleClass="p-card-shadow"
+>
+  <ng-template pTemplate="header"> </ng-template>
+  <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+    <span class="p-float-label">
+      <input id="float-input" type="text" pInputText formControlName="name" />
+      <label for="float-input">Username</label>
+    </span>
+    <label>
+      Last Name:
+      <input type="text" formControlName="lastName" />
+    </label>
+
+    <div formGroupName="address">
+      <h3>Address</h3>
+
+<p-dropdown [options]="countries" optionLabel="name" [filter]="false" filterBy="name"
+	[showClear]="true" placeholder="Select a Country">
+	<ng-template pTemplate="selectedItem">
+		<div class="country-item country-item-value" *ngIf="selectedCountry">
+			<div>{{selectedCountry.name}}</div>
+		</div>
+	</ng-template>
+	<ng-template let-country pTemplate="item">
+		<div class="country-item">
+			<div>{{country.name}}</div>
+		</div>
+	</ng-template>
+</p-dropdown>
+
+      <label>
+        City:
+        <input type="text" formControlName="city" />
+      </label>
+
+      <label>
+        State:
+        <input type="text" formControlName="state" />
+      </label>
+
+      <label>
+        Zip Code:
+        <input type="text" formControlName="zip" />
+      </label>
+    </div>
+
+    <button type="submit" [disabled]="!profileForm.valid">Submit</button>
+  </form>
+
+  <hr />
+
+  <p>Form Value: {{ profileForm.value | json }}</p>
+
+  <p>Form Status: {{ profileForm.status }}</p>
+
+  <p>
+    <button (click)="updateProfile()">Update Profile</button>
+  </p>
+
+  <ng-template pTemplate="footer">
+    <p-button label="Save" icon="pi pi-check"></p-button>
+    <p-button
+      label="Cancel"
+      icon="pi pi-times"
+      styleClass="p-button-secondary"
+      [style]="{ 'margin-left': '.5em' }"
+    ></p-button>
+  </ng-template>
+</p-card>
