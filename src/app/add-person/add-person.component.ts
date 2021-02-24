@@ -3,6 +3,7 @@ import { FormBuilder } from "@angular/forms";
 import { Validators } from "@angular/forms";
 import { FormArray } from "@angular/forms";
 import { comuniItaliani } from "../../data/comuni";
+import { keys } from "../../keys";
 import { SelectItem, FilterService, FilterMatchMode } from "primeng/api";
 import { HttpClient } from '@angular/common/http';
 
@@ -78,7 +79,7 @@ export class AddPersonComponent {
   locate(strada: string, comune: string) {
     const par = encodeURIComponent(strada + ', ' + comune)
     this.http.get('https://maps.googleapis.com/maps/api/geocode/json?address=' +
-      par + '&key=AIzaSyALxkHpv-nfKF0pGHdem-GiB9h-vjSDkkE')
+      par + '&key=' + keys.google)
       .subscribe(
 
         data => {
