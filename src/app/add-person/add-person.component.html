@@ -1,51 +1,49 @@
 <p-card
-  header="Advanced Card"
-  subheader="Card Subheader"
-  [style]="{ width: '360px' }"
+  header="Aggiungi furbetto"
+  [style]="{ width: '560px' }"
   styleClass="p-card-shadow"
 >
   <ng-template pTemplate="header"> </ng-template>
   <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
-    <span class="p-float-label">
-      <input id="float-input" type="text" pInputText formControlName="name" />
-      <label for="float-input">Username</label>
-    </span>
-    <label>
-      Last Name:
-      <input type="text" formControlName="lastName" />
-    </label>
+    <div class="p-field p-input">
+      <label for="nome1">Il tuo nome</label>
+      <input id="nome1" type="text" pInputText formControlName="nome" />
+    </div>
 
-    <div formGroupName="address">
-      <h3>Address</h3>
+    <div class="p-field p-input">
+      <label for="nomeFurbetto1">Il nome del furbetto</label>
+      <input
+        id="nomeFurbetto1"
+        aria-describedby="nomeFurbetto1-help"
+        type="text"
+        pInputText
+        formControlName="nome"
+      />
+      <small id="nomeFurbetto1-help"
+        >Enter your username to reset your password.</small
+      >
+    </div>
 
-<p-dropdown [options]="countries" optionLabel="name" [filter]="false" filterBy="name"
-	[showClear]="true" placeholder="Select a Country">
-	<ng-template pTemplate="selectedItem">
-		<div class="country-item country-item-value" *ngIf="selectedCountry">
-			<div>{{selectedCountry.name}}</div>
-		</div>
-	</ng-template>
-	<ng-template let-country pTemplate="item">
-		<div class="country-item">
-			<div>{{country.name}}</div>
-		</div>
-	</ng-template>
-</p-dropdown>
+    <div class="p-field p-input">
+      <label for="comune1">Il comune dove si trova la tua proprieta'</label>
+      <p-autoComplete
+        d="comune1"
+        formControlName="comune"
+        [suggestions]="comuniResults"
+        (completeMethod)="searchComune($event)"
+        [forceSelection]="true"
+      ></p-autoComplete>
+    </div>
 
-      <label>
-        City:
-        <input type="text" formControlName="city" />
-      </label>
-
-      <label>
-        State:
-        <input type="text" formControlName="state" />
-      </label>
-
-      <label>
-        Zip Code:
-        <input type="text" formControlName="zip" />
-      </label>
+    <div class="p-field p-input">
+      <label for="provincia">La citta dove si trova la tua proprieta'</label>
+      <input
+        id="provincia"
+        disabled="true"
+        type="text"
+        pInputText
+        formControlName="provincia"
+      />
     </div>
 
     <button type="submit" [disabled]="!profileForm.valid">Submit</button>

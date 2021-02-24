@@ -1,0 +1,24 @@
+.country-item-value {
+  img.flag {
+    width: 17px;
+  }
+}
+
+.sizes {
+  .p-inputtext {
+    display: block;
+    margin-bottom: 0.5rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.p-input {
+  margin-top: 25px;
+}
+
+.p-field * {
+  display: block;
+}
