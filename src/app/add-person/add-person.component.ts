@@ -89,7 +89,7 @@ export class AddPersonComponent {
 
         error => {
 
-          console.log("Rrror", error);
+          console.log("error", error);
 
         });
   }
