@@ -5,7 +5,7 @@ import { FormArray } from "@angular/forms";
 import { comuniItaliani } from "../../data/comuni";
 import { keys } from "../../keys";
 import { SelectItem, FilterService, FilterMatchMode } from "primeng/api";
-import { HttpClient } from '@angular/common/http';
+import { HttpClient } from "@angular/common/http";
 
 @Component({
   selector: "app-add-person",
@@ -41,7 +41,7 @@ export class AddPersonComponent {
   constructor(private fb: FormBuilder, private http: HttpClient) {
     this.options = {
       center: { lat: 36.890257, lng: 30.707417 },
-      zoom: 12
+      zoom: 12,
     };
 
     console.log("comuniItaliani", this.comuni);
@@ -57,7 +57,7 @@ export class AddPersonComponent {
 
     this.profileForm.valueChanges.subscribe((val) => {
       if (val.comune && val.strada) {
-        this.locate(val.strada, val.comune)
+        this.locate(val.strada, val.comune);
       }
     });
   }
@@ -77,21 +77,22 @@ export class AddPersonComponent {
   }
 
   locate(strada: string, comune: string) {
-    const par = encodeURIComponent(strada + ', ' + comune)
-    this.http.get('https://maps.googleapis.com/maps/api/geocode/json?address=' +
-      par + '&key=' + keys.google)
+    const par = encodeURIComponent(strada + ", " + comune);
+    this.http
+      .get(
+        "https://maps.googleapis.com/maps/api/geocode/json?address=" +
+          par +
+          "&key=" +
+          keys.google
+      )
       .subscribe(
-
-        data => {
-
+        (data) => {
           console.log("coordinates ", data);
-
         },
 
-        error => {
-
+        (error) => {
           console.log("error", error);
-
-        });
+        }
+      );
   }
 }

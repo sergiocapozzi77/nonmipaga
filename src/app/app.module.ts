@@ -13,9 +13,9 @@ import { DropdownModule } from "primeng/dropdown";
 import { FormsModule } from "@angular/forms";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { AutoCompleteModule } from "primeng/autocomplete";
-import { GMapModule } from 'primeng/gmap';
-import { HttpClientModule } from '@angular/common/http';
-
+import { GMapModule } from "primeng/gmap";
+import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
+import { AuthInterceptorService } from "./auth-interceptor.service";
 
 @NgModule({
   declarations: [AppComponent, AddPersonComponent],
@@ -32,9 +32,15 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserAnimationsModule,
     AutoCompleteModule,
     GMapModule,
-    HttpClientModule
+    HttpClientModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
