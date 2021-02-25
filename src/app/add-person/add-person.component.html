@@ -5,37 +5,48 @@
 >
   <ng-template pTemplate="header"> </ng-template>
   <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
-    <div class="p-field p-input">
+    <div class="p-field div-input">
       <label for="nome1">Il tuo nome</label>
-      <input id="nome1" type="text" pInputText formControlName="nome" />
+      <input
+        id="nome1"
+        type="text"
+        pInputText
+        formControlName="nome"
+        autocomplete="nope"
+        class="p-input"
+      />
     </div>
 
-    <div class="p-field p-input">
+    <div class="p-field div-input">
       <label for="nomeFurbetto1">Il nome del furbetto</label>
       <input
+        autocomplete="nope"
         id="nomeFurbetto1"
         aria-describedby="nomeFurbetto1-help"
         type="text"
         pInputText
-        formControlName="nome"
+        formControlName="nomeFurbetto"
+        class="p-input"
       />
       <small id="nomeFurbetto1-help"
-        >Enter your username to reset your password.</small
+        >Inserisci solo il nome, non il suo cognome...maledetta privacy!!</small
       >
     </div>
 
-    <div class="p-field p-input">
+    <div class="p-field div-input">
       <label for="comune1">Il comune dove si trova la tua proprieta'</label>
       <p-autoComplete
+        autocomplete="nope"
         d="comune1"
         formControlName="comune"
         [suggestions]="comuniResults"
         (completeMethod)="searchComune($event)"
         [forceSelection]="true"
+        class="p-input"
       ></p-autoComplete>
     </div>
 
-    <div class="p-field p-input">
+    <div class="p-field div-input">
       <label for="provincia">La citta dove si trova la tua proprieta'</label>
       <input
         id="provincia"
@@ -43,10 +54,36 @@
         type="text"
         pInputText
         formControlName="provincia"
+        class="p-input"
       />
     </div>
 
-    <button type="submit" [disabled]="!profileForm.valid">Submit</button>
+    <div class="p-field div-input">
+      <label for="street">La strada</label>
+      <input
+        id="street"
+        type="text"
+        pInputText
+        formControlName="strada"
+        autocomplete="nope"
+        class="p-input"
+      />
+    </div>
+
+    <div class="div-input">
+      <p-button
+        label="Save"
+        icon="pi pi-check"
+        type="submit"
+        [disabled]="!profileForm.valid"
+      ></p-button>
+      <p-button
+        label="Cancel"
+        icon="pi pi-times"
+        styleClass="p-button-secondary"
+        [style]="{ 'margin-left': '.5em' }"
+      ></p-button>
+    </div>
   </form>
 
   <hr />
@@ -55,17 +92,10 @@
 
   <p>Form Status: {{ profileForm.status }}</p>
 
-  <p>
-    <button (click)="updateProfile()">Update Profile</button>
-  </p>
-
   <ng-template pTemplate="footer">
-    <p-button label="Save" icon="pi pi-check"></p-button>
-    <p-button
-      label="Cancel"
-      icon="pi pi-times"
-      styleClass="p-button-secondary"
-      [style]="{ 'margin-left': '.5em' }"
-    ></p-button>
+    <p-gmap
+      [options]="options"
+      [style]="{ width: '100%', height: '320px' }"
+    ></p-gmap>
   </ng-template>
 </p-card>

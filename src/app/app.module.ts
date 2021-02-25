@@ -13,6 +13,9 @@ import { DropdownModule } from "primeng/dropdown";
 import { FormsModule } from "@angular/forms";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { AutoCompleteModule } from "primeng/autocomplete";
+import { GMapModule } from 'primeng/gmap';
+import { HttpClientModule } from '@angular/common/http';
+
 
 @NgModule({
   declarations: [AppComponent, AddPersonComponent],
@@ -28,8 +31,10 @@ import { AutoCompleteModule } from "primeng/autocomplete";
     FormsModule,
     BrowserAnimationsModule,
     AutoCompleteModule,
+    GMapModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

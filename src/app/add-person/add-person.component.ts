@@ -3,7 +3,9 @@ import { FormBuilder } from "@angular/forms";
 import { Validators } from "@angular/forms";
 import { FormArray } from "@angular/forms";
 import { comuniItaliani } from "../../data/comuni";
+import { keys } from "../../keys";
 import { SelectItem, FilterService, FilterMatchMode } from "primeng/api";
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: "app-add-person",
@@ -12,13 +14,15 @@ import { SelectItem, FilterService, FilterMatchMode } from "primeng/api";
   providers: [FilterService],
 })
 export class AddPersonComponent {
+  options: any;
+
   profileForm = this.fb.group({
     nome: ["", Validators.required],
     nomeFurbetto: ["", Validators.required],
     mail: ["", [Validators.email]],
     strada: ["", Validators.required],
     comune: ["", Validators.required],
-    cap: ["", Validators.required],
+    // cap: ["", Validators.required],
     provincia: [
       {
         value: null,
@@ -34,7 +38,12 @@ export class AddPersonComponent {
     return this.profileForm.get("aliases") as FormArray;
   }
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private http: HttpClient) {
+    this.options = {
+      center: { lat: 36.890257, lng: 30.707417 },
+      zoom: 12
+    };
+
     console.log("comuniItaliani", this.comuni);
     this.profileForm.get("comune").valueChanges.subscribe((val) => {
       if (val) {
@@ -43,6 +52,12 @@ export class AddPersonComponent {
         this.profileForm.controls["provincia"].setValue(
           comune[0].provincia.nome
         );
+      }
+    });
+
+    this.profileForm.valueChanges.subscribe((val) => {
+      if (val.comune && val.strada) {
+        this.locate(val.strada, val.comune)
       }
     });
   }
@@ -56,21 +71,27 @@ export class AddPersonComponent {
     );
   }
 
-  updateProfile() {
-    this.profileForm.patchValue({
-      firstName: "Nancy",
-      address: {
-        street: "123 Drew Street",
-      },
-    });
-  }
-
-  addAlias() {
-    this.aliases.push(this.fb.control(""));
-  }
-
   onSubmit() {
     // TODO: Use EventEmitter with form value
     console.warn(this.profileForm.value);
+  }
+
+  locate(strada: string, comune: string) {
+    const par = encodeURIComponent(strada + ', ' + comune)
+    this.http.get('https://maps.googleapis.com/maps/api/geocode/json?address=' +
+      par + '&key=' + keys.google)
+      .subscribe(
+
+        data => {
+
+          console.log("coordinates ", data);
+
+        },
+
+        error => {
+
+          console.log("error", error);
+
+        });
   }
 }
