@@ -1,0 +1,78 @@
+<p-card
+  header="Informazioni sul furbetto"
+  [style]="{ width: '35em' }"
+  styleClass="p-card-shadow"
+>
+  <ng-template pTemplate="header"> </ng-template>
+  <div class="p-field div-input">
+    <label for="nome3">Il nome del povero proprietario</label>
+    <input
+      id="nome3"
+      type="text"
+      pInputText
+      class="p-input"
+      [(ngModel)]="furbetto.nome"
+      disabled="true"
+    />
+  </div>
+
+  <div class="p-field div-input">
+    <label for="mail3">La mail del proprietario</label>
+    <input
+      id="mail3"
+      type="text"
+      pInputText
+      class="p-input"
+      [(ngModel)]="furbetto.mail"
+      disabled="true"
+    />
+  </div>
+
+  <div class="p-field div-input">
+    <label for="nomeFurbetto3">Il nome del furbetto parassita</label>
+    <input
+      id="nomeFurbetto3"
+      type="text"
+      pInputText
+      class="p-input"
+      [(ngModel)]="furbetto.nomeFurbetto"
+      disabled="true"
+    />
+  </div>
+
+  <div class="p-field div-input">
+    <label for="comune3">Il comune in cui si trova la proprieta'</label>
+    <input
+      id="comune3"
+      type="text"
+      pInputText
+      class="p-input"
+      [(ngModel)]="furbetto.comune"
+      disabled="true"
+    />
+  </div>
+
+  <div class="p-field div-input">
+    <label for="provincia2">Il provincia in cui si trova la proprieta'</label>
+    <input
+      id="provincia2"
+      type="text"
+      pInputText
+      class="p-input"
+      [(ngModel)]="furbetto.provincia"
+      disabled="true"
+    />
+  </div>
+
+  <div class="p-field div-input">
+    <label for="strada3">La strada in cui si trova la proprieta'</label>
+    <input
+      id="strada3"
+      type="text"
+      pInputText
+      class="p-input"
+      [(ngModel)]="furbetto.strada"
+      disabled="true"
+    />
+  </div>
+</p-card>

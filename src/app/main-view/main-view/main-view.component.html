@@ -1,0 +1,41 @@
+<p-sidebar
+  [(visible)]="showSidebar"
+  [baseZIndex]="10000"
+  [style]="{ width: '40em' }"
+  [showCloseIcon]="false"
+>
+  <app-add-person (onAdded)="furbettoAdded($event)"></app-add-person>
+</p-sidebar>
+
+<p-sidebar
+  [(visible)]="showFurbettoSidebar"
+  [baseZIndex]="10000"
+  [style]="{ width: '40em' }"
+  [showCloseIcon]="true"
+  position="right"
+>
+  <app-furbetto-info
+    *ngIf="selectedFurbetto"
+    [furbetto]="selectedFurbetto"
+  ></app-furbetto-info>
+</p-sidebar>
+
+<p-toolbar styleClass="top-toolbar">
+  <div class="p-toolbar-group-left"></div>
+
+  <div class="p-toolbar-group-right"></div>
+</p-toolbar>
+
+<div style="text-align: center; margin-top: 30px">
+  <button
+    pButton
+    type="button"
+    label="Aggiungi furbetto"
+    (click)="toggleShowSidebar()"
+    class="p-button-raised"
+  ></button>
+</div>
+
+<div style="text-align: center; margin-top: 30px">
+  <app-mappa-furbetti></app-mappa-furbetti>
+</div>

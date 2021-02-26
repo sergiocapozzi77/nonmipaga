@@ -1,0 +1,8 @@
+<p-gmap
+  #gmap
+  [overlays]="overlays"
+  [options]="options"
+  (onMapReady)="setMap($event)"
+  [style]="{ width: '80%', height: '420px' }"
+  (onOverlayClick)="handleOverlayClick($event)"
+></p-gmap>

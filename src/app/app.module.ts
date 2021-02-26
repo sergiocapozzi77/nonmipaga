@@ -16,9 +16,25 @@ import { AutoCompleteModule } from "primeng/autocomplete";
 import { GMapModule } from "primeng/gmap";
 import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
 import { AuthInterceptorService } from "./auth-interceptor.service";
+import { MainViewComponent } from "./main-view/main-view/main-view.component";
+import { RouterModule, Routes } from "@angular/router";
+import { SidebarModule } from "primeng/sidebar";
+import { MappaFurbettiComponent } from "./map/mappa-furbetti/mappa-furbetti.component";
+import { ListboxModule } from "primeng/listbox";
+import { GoogleMapsModule } from "@angular/google-maps";
+import { FurbettoInfoComponent } from "./furbetto-info/furbetto-info.component";
+import { InputTextareaModule } from "primeng/inputtextarea";
+
+const routes: Routes = [{ path: "", component: MainViewComponent }];
 
 @NgModule({
-  declarations: [AppComponent, AddPersonComponent],
+  declarations: [
+    AppComponent,
+    AddPersonComponent,
+    MainViewComponent,
+    MappaFurbettiComponent,
+    FurbettoInfoComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -33,6 +49,11 @@ import { AuthInterceptorService } from "./auth-interceptor.service";
     AutoCompleteModule,
     GMapModule,
     HttpClientModule,
+    SidebarModule,
+    ListboxModule,
+    GoogleMapsModule,
+    InputTextareaModule,
+    RouterModule.forRoot(routes),
   ],
   providers: [
     {

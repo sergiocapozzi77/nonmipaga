@@ -1,15 +1,1 @@
-<p-toolbar styleClass="top-toolbar">
-  <div class="p-toolbar-group-left"></div>
-
-  <div class="p-toolbar-group-right"></div>
-</p-toolbar>
-
-<button
-  pButton
-  type="button"
-  label="Aggiungi stronzo"
-  (click)="toggleShowAddPerson()"
-  class="p-button-raised"
-></button>
-
-<app-add-person *ngIf="showAddPerson"></app-add-person>
+<router-outlet></router-outlet>

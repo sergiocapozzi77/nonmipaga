@@ -6,6 +6,9 @@ export interface IFurbetto {
   strada: string;
   comune: string;
   provincia: string;
+  lat: number;
+  lng: number;
+  info: string;
 }
 
 class Furbetto implements IFurbetto {
@@ -16,6 +19,9 @@ class Furbetto implements IFurbetto {
   strada: string;
   comune: string;
   provincia: string;
+  lat: number;
+  lng: number;
+  info: string;
 
   constructor(furbetto: IFurbetto) {
     this.id = furbetto.id;
@@ -25,6 +31,9 @@ class Furbetto implements IFurbetto {
     this.strada = furbetto.strada;
     this.comune = furbetto.comune;
     this.provincia = furbetto.provincia;
+    this.lat = furbetto.lat;
+    this.lng = furbetto.lng;
+    this.info = furbetto.info;
   }
 }
 

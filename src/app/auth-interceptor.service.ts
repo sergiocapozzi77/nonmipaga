@@ -14,12 +14,16 @@ import { Observable, throwError } from "rxjs";
   providedIn: "root",
 })
 export class AuthInterceptorService implements HttpInterceptor {
-  constructor(private http: HttpClient) {}
+  constructor() {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
-    console.log("Interception In Progress");
+    console.log("Interception In Progress", req);
     const token: string = localStorage.getItem("token");
     console.log("Token", token);
+
+    if (req.url.indexOf("googleapis.com") > -1) {
+      return next.handle(req);
+    }
 
     req = req.clone({
       headers: req.headers.set("Authorization", "Bearer " + token),

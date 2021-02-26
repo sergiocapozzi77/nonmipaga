@@ -1,7 +1,6 @@
+import { EventsService } from "./events.service";
 import { HttpClient } from "@angular/common/http";
 import { Component } from "@angular/core";
-import { EMPTY } from "rxjs";
-import { catchError } from "rxjs/operators";
 
 @Component({
   selector: "app-root",
@@ -9,33 +8,20 @@ import { catchError } from "rxjs/operators";
   styleUrls: ["./app.component.scss"],
 })
 export class AppComponent {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private eventsService: EventsService) {
+    this.requestToken();
+  }
 
   title = "Non mi paga!";
 
-  showAddPerson = false;
-
-  toggleShowAddPerson() {
-    this.showAddPerson = !this.showAddPerson;
-
+  requestToken() {
     console.log("No token");
     this.http.get("http://localhost:3000/api/token/sign").subscribe(
       (res) => {
         console.log(res);
         if (res["token"]) {
           localStorage.setItem("token", res["token"]);
-          /*
-          this.http
-            .get("http://localhost:3000/api/furbetti/all")
-            .pipe(
-              catchError((er, c) => {
-                console.log("get furbetti error", er);
-                return EMPTY;
-              })
-            )
-            .subscribe((data) => {
-              console.log("get furbetti", data);
-            });*/
+          this.eventsService.setTokenReady();
         }
       },
       (err) => {
