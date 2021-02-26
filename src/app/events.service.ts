@@ -8,17 +8,22 @@ import { BehaviorSubject, Subject } from "rxjs";
 })
 export class EventsService {
   tokenReady = new BehaviorSubject(false);
-  furbetti = new Subject<IMarker>();
+  locations = new Subject<IMarker>();
   selectedFurbetto = new Subject<IFurbetto>();
+  furbetti = new Subject<IFurbetto>();
 
   constructor() {}
+
+  addFurbetto(furbetto: IFurbetto) {
+    this.furbetti.next(furbetto);
+  }
 
   setTokenReady() {
     this.tokenReady.next(true);
   }
 
   addLocation(location: IMarker) {
-    this.furbetti.next(location);
+    this.locations.next(location);
   }
 
   selectFurbetto(furbetto: IFurbetto) {

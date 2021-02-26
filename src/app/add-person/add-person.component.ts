@@ -5,10 +5,9 @@ import { FurbettiService } from "./../services/furbetti.service";
 import { Component, EventEmitter, Output } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { Validators } from "@angular/forms";
-import { FormArray } from "@angular/forms";
 import { comuniItaliani } from "../../data/comuni";
 import { keys } from "../../keys";
-import { SelectItem, FilterService, FilterMatchMode } from "primeng/api";
+import { FilterService, MessageService } from "primeng/api";
 import { HttpClient } from "@angular/common/http";
 import Furbetto from "../models/furbetto";
 
@@ -34,6 +33,7 @@ export class AddPersonComponent {
     info: [""],
   });
 
+  addressValid: boolean;
   comuni: string[] = comuniItaliani.map((x) => x.nome);
   name: string;
   /*addresses: any[] = [
@@ -78,7 +78,8 @@ export class AddPersonComponent {
     private http: HttpClient,
     private furbettoService: FurbettiService,
     private locationService: LocationService,
-    private eventsService: EventsService
+    private eventsService: EventsService,
+    private messageService: MessageService
   ) {
     console.log("comuniItaliani", this.comuni);
     this.profileForm.get("comune").valueChanges.subscribe((val) => {
@@ -91,6 +92,7 @@ export class AddPersonComponent {
 
     this.profileForm.valueChanges.subscribe((val) => {
       if (val.comune && val.strada) {
+        this.addressValid = true;
         //   this.locate(val.strada, val.comune);
       }
     });
@@ -153,6 +155,13 @@ export class AddPersonComponent {
         };
         this.onAdded.emit();
         this.eventsService.addLocation(loc);
+        //this.eventsService.addFurbetto(this.profileForm.value);
+        this.messageService.add({
+          severity: "success",
+          summary: "Furbetto aggiunto",
+          detail:
+            "Grazie per la tua segnalazione. Ti auguro di cacciare il tuo parassita al piu' presto",
+        });
 
         this.profileForm.reset();
         this.addresses = null;
@@ -161,6 +170,12 @@ export class AddPersonComponent {
       },
       (error) => {
         console.log("Furbetto Error", error);
+        this.messageService.add({
+          severity: "error",
+          summary: "Si e' verificato un errore",
+          detail: error,
+        });
+
         this.onAdded.emit({});
       }
     );

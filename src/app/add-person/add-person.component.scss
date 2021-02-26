@@ -15,16 +15,34 @@
   }
 }
 
+.left {
+  float: left;
+}
+
+.clear {
+  clear: both;
+}
+
+.scrollable {
+  overflow: auto;
+  max-height: 1000px;
+}
+
 .div-input {
   margin-top: 25px;
+  margin-left: 25px;
+}
+
+.div-input-left {
+  margin-left: 25px;
 }
 
 .p-input {
-  width: 350px;
+  width: 250px;
 }
 
 .p-inputtextarea {
-  width: 350px;
+  width: 250px;
 }
 
 .p-field * {
@@ -32,5 +50,5 @@
 }
 
 .p-autocomplete {
-  width: 350px;
+  width: 250px;
 }

@@ -1,141 +1,146 @@
-<p-card
-  header="Aggiungi furbetto"
-  [style]="{ width: '35em' }"
-  styleClass="p-card-shadow"
->
-  <ng-template pTemplate="header"> </ng-template>
-  <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
-    <div class="p-field div-input">
-      <label for="nome1">Il tuo nome</label>
-      <input
-        id="nome1"
-        type="text"
-        pInputText
-        formControlName="nome"
-        class="p-input"
-      />
-    </div>
+<p-scrollPanel #scroll [style]="{ width: '100%', height: '100%' }">
+  <p-card
+    header="Aggiungi furbetto"
+    [style]="{ width: '45em', height: '970px' }"
+    styleClass="p-card-shadow"
+  >
+    <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+      <div class="p-field div-input left">
+        <label for="nome1">Il tuo nome</label>
+        <input
+          id="nome1"
+          type="text"
+          pInputText
+          formControlName="nome"
+          class="p-input"
+        />
+      </div>
 
-    <div class="p-field div-input">
-      <label for="nome1">La tua mail (facoltativa)</label>
-      <input
-        id="mail"
-        type="text"
-        pInputText
-        formControlName="mail"
-        autocomplete="mail"
-        class="p-input"
-      />
-    </div>
+      <div class="p-field div-input left">
+        <label for="nome1">La tua mail (facoltativa)</label>
+        <input
+          id="mail"
+          type="text"
+          pInputText
+          formControlName="mail"
+          autocomplete="mail"
+          class="p-input"
+        />
+      </div>
 
-    <div class="p-field div-input">
-      <label for="nomeFurbetto1">Il nome del furbetto</label>
-      <input
-        autocomplete="nope"
-        id="nomeFurbetto1"
-        aria-describedby="nomeFurbetto1-help"
-        type="text"
-        pInputText
-        formControlName="nomeFurbetto"
-        class="p-input"
-      />
-      <small id="nomeFurbetto1-help"
-        >Inserisci solo il nome, non il suo cognome...maledetta privacy!!</small
-      >
-    </div>
+      <div class="clear"></div>
+      <div class="p-field div-input left">
+        <label for="nomeFurbetto1">Il nome del furbetto</label>
+        <input
+          autocomplete="nope"
+          id="nomeFurbetto1"
+          aria-describedby="nomeFurbetto1-help"
+          type="text"
+          pInputText
+          formControlName="nomeFurbetto"
+          class="p-input"
+        />
+        <small id="nomeFurbetto1-help"
+          >Inserisci solo il nome, non il suo cognome...maledetta
+          privacy!!</small
+        >
+      </div>
 
-    <div class="p-field div-input">
-      <label for="info">La descrizione del furbetto</label>
-      <textarea
-        pInputTextarea
-        formControlName="info"
-        autocomplete="nope"
-      ></textarea>
-      <small id="info-help"
-        >Una descrizione per riconoscere il furbetto (e' una famiglia? figli?
-        come si presenta?)</small
-      >
-    </div>
+      <div class="p-field div-input left">
+        <label for="info">La descrizione del furbetto</label>
+        <textarea
+          pInputTextarea
+          formControlName="info"
+          autocomplete="nope"
+        ></textarea>
+        <small id="info-help"
+          >Una descrizione per riconoscere il furbetto (e' una famiglia? figli?
+          come si presenta?)</small
+        >
+      </div>
+      <div class="clear"></div>
+      <div class="p-field div-input left">
+        <label for="comune1">Il comune dove si trova la tua proprieta'</label>
+        <p-autoComplete
+          autocomplete="nope"
+          d="comune1"
+          formControlName="comune"
+          [suggestions]="comuniResults"
+          (completeMethod)="searchComune($event)"
+          [forceSelection]="true"
+          class="p-input"
+        ></p-autoComplete>
+      </div>
 
-    <div class="p-field div-input">
-      <label for="comune1">Il comune dove si trova la tua proprieta'</label>
-      <p-autoComplete
-        autocomplete="nope"
-        d="comune1"
-        formControlName="comune"
-        [suggestions]="comuniResults"
-        (completeMethod)="searchComune($event)"
-        [forceSelection]="true"
-        class="p-input"
-      ></p-autoComplete>
-    </div>
+      <div class="p-field div-input left">
+        <label for="provincia"
+          >La provincia dove si trova la tua proprieta'</label
+        >
+        <input
+          id="provincia"
+          disabled="true"
+          type="text"
+          pInputText
+          formControlName="provincia"
+          class="p-input"
+        />
+      </div>
+      <div class="clear"></div>
+      <div class="p-field div-input left">
+        <label for="street">La strada dove si trova la tua proprieta'</label>
+        <input
+          id="street"
+          type="text"
+          pInputText
+          formControlName="strada"
+          autocomplete="nope"
+          class="p-input"
+        />
+      </div>
+      <div class="clear"></div>
+      <div class="div-input left">
+        <p-button
+          label="Cerca"
+          icon="pi pi-search"
+          (click)="onSearch($event)"
+          [disabled]="!addressValid"
+        ></p-button>
+      </div>
 
-    <div class="p-field div-input">
-      <label for="provincia"
-        >La provincia dove si trova la tua proprieta'</label
-      >
-      <input
-        id="provincia"
-        disabled="true"
-        type="text"
-        pInputText
-        formControlName="provincia"
-        class="p-input"
-      />
-    </div>
-
-    <div class="p-field div-input">
-      <label for="street">La strada dove si trova la tua proprieta'</label>
-      <input
-        id="street"
-        type="text"
-        pInputText
-        formControlName="strada"
-        autocomplete="nope"
-        class="p-input"
-      />
-    </div>
-
-    <div class="div-input">
-      <p-button
-        label="Cerca"
-        icon="pi pi-search"
-        (click)="onSearch($event)"
-      ></p-button>
-    </div>
-
-    <label class="div-input" p-error>{{ addressError }}</label>
-
-    <div class="p-field div-input" *ngIf="addresses">
-      <p-listbox
-        [options]="addresses"
-        [multiple]="false"
-        optionLabel="formatted_address"
-        [(ngModel)]="selectedAddress"
-        [ngModelOptions]="{ standalone: true }"
-        [listStyle]="{ 'max-height': '250px' }"
-      >
-        <ng-template let-address pTemplate="item">
-          <div class="address-item">
-            <div>{{ address.formatted_address }}</div>
-          </div>
-        </ng-template>
-      </p-listbox>
-    </div>
-    <div class="div-input">
-      <p-button
-        label="Aggiungi"
-        icon="pi pi-check"
-        type="submit"
-        [disabled]="!profileForm.valid"
-      ></p-button>
-      <p-button
-        label="Annulla"
-        icon="pi pi-times"
-        styleClass="p-button-secondary"
-        [style]="{ 'margin-left': '.5em' }"
-        (click)="onClose($event)"
-      ></p-button>
-    </div>
-  </form>
-</p-card>
+      <label class="div-input" p-error>{{ addressError }}</label>
+      <div class="clear"></div>
+      <div class="p-field div-input left" *ngIf="addresses">
+        <p-listbox
+          [options]="addresses"
+          [multiple]="false"
+          optionLabel="formatted_address"
+          [(ngModel)]="selectedAddress"
+          [ngModelOptions]="{ standalone: true }"
+          [listStyle]="{ 'max-height': '250px' }"
+        >
+          <ng-template let-address pTemplate="item">
+            <div class="address-item">
+              <div>{{ address.formatted_address }}</div>
+            </div>
+          </ng-template>
+        </p-listbox>
+      </div>
+      <div class="clear">&nbsp;</div>
+      <div class="div-input left">
+        <p-button
+          label="Aggiungi"
+          icon="pi pi-check"
+          type="submit"
+          [disabled]="!profileForm.valid"
+        ></p-button>
+        <p-button
+          label="Annulla"
+          icon="pi pi-times"
+          styleClass="p-button-secondary"
+          [style]="{ 'margin-left': '.5em' }"
+          (click)="onClose($event)"
+        ></p-button>
+      </div>
+    </form>
+  </p-card>
+</p-scrollPanel>

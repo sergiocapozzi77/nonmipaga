@@ -17,7 +17,7 @@ export class MappaFurbettiComponent implements OnInit {
     private eventsService: EventsService,
     private furbettiService: FurbettiService
   ) {
-    this.eventsService.furbetti.subscribe((loc) => {
+    this.eventsService.locations.subscribe((loc) => {
       this.addMarker(loc);
       this.map.setCenter(new google.maps.LatLng(loc.lat, loc.lng));
       this.map.setZoom(17);
@@ -44,6 +44,7 @@ export class MappaFurbettiComponent implements OnInit {
     let marker = new google.maps.Marker({
       position: { lat: loc.lat, lng: loc.lng },
       title: loc.title,
+      icon: "assets/poo.png",
     });
 
     marker["customData"] = loc.data;
