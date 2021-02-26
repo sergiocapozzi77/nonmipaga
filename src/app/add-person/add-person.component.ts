@@ -1,11 +1,13 @@
+import { FurbettiService } from './../services/furbetti.service';
 import { Component } from "@angular/core";
-import { FormBuilder } from "@angular/forms";
+import { FormBuilder, FormGroup } from "@angular/forms";
 import { Validators } from "@angular/forms";
 import { FormArray } from "@angular/forms";
 import { comuniItaliani } from "../../data/comuni";
 import { keys } from "../../keys";
 import { SelectItem, FilterService, FilterMatchMode } from "primeng/api";
 import { HttpClient } from "@angular/common/http";
+import Furbetto from "../models/Furbetto";
 
 @Component({
   selector: "app-add-person",
@@ -16,7 +18,7 @@ import { HttpClient } from "@angular/common/http";
 export class AddPersonComponent {
   options: any;
 
-  profileForm = this.fb.group({
+  profileForm: FormGroup = this.fb.group({
     nome: ["", Validators.required],
     nomeFurbetto: ["", Validators.required],
     mail: ["", [Validators.email]],
@@ -34,11 +36,8 @@ export class AddPersonComponent {
   comuni: string[] = comuniItaliani.map((x) => x.nome);
   name: string;
   selectedComune: string;
-  get aliases() {
-    return this.profileForm.get("aliases") as FormArray;
-  }
 
-  constructor(private fb: FormBuilder, private http: HttpClient) {
+  constructor(private fb: FormBuilder, private http: HttpClient, private furbettoService: FurbettiService) {
     this.options = {
       center: { lat: 36.890257, lng: 30.707417 },
       zoom: 12,
@@ -57,7 +56,7 @@ export class AddPersonComponent {
 
     this.profileForm.valueChanges.subscribe((val) => {
       if (val.comune && val.strada) {
-        this.locate(val.strada, val.comune);
+        //   this.locate(val.strada, val.comune);
       }
     });
   }
@@ -74,16 +73,17 @@ export class AddPersonComponent {
   onSubmit() {
     // TODO: Use EventEmitter with form value
     console.warn(this.profileForm.value);
+    this.furbettoService.addFurbetto(this.profileForm.value).subscribe(
+      (data) => {
+        console.log("addFurbetto ", data);
+      })
   }
 
   locate(strada: string, comune: string) {
-    const par = encodeURIComponent(strada + ", " + comune);
+    const par = encodeURIComponent(strada + ', ' + comune);
     this.http
       .get(
-        "https://maps.googleapis.com/maps/api/geocode/json?address=" +
-          par +
-          "&key=" +
-          keys.google
+        `https://maps.googleapis.com/maps/api/geocode/json?address=${par}&key=${keys.google}`
       )
       .subscribe(
         (data) => {
