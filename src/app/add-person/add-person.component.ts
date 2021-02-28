@@ -42,6 +42,7 @@ export class AddPersonComponent {
     { formatted_address: "cc" },
   ];*/
 
+  loading: boolean = false;
   addresses: any[];
   selectedComune: string;
 
@@ -62,6 +63,29 @@ export class AddPersonComponent {
         this.profileForm
           .get("lng")
           .setValue(this._selectedAddress.geometry.location.lng);
+
+        let strada = this.getAddress_componentsElement(
+          this._selectedAddress.address_components,
+          "route"
+        );
+
+        if (!strada) {
+          strada = this.getAddress_componentsElement(
+            this._selectedAddress.address_components,
+            "street_address"
+          );
+        }
+
+        if (strada) {
+          let streetNumber = this.getAddress_componentsElement(
+            this._selectedAddress.address_components,
+            "street_number"
+          );
+          if (streetNumber) {
+            strada = `${strada}, ${streetNumber}`;
+          }
+          this.profileForm.get("strada").setValue(strada);
+        }
       } catch (error) {
         console.log("setting selected address to error", error);
         this.profileForm.get("lat").setValue(null);
@@ -73,9 +97,17 @@ export class AddPersonComponent {
     }
   }
 
+  getAddress_componentsElement(addressComponents: any[], key: string) {
+    let item = addressComponents.find((x) => x.types.includes(key));
+    if (item) {
+      return item.long_name;
+    }
+
+    return null;
+  }
+
   constructor(
     private fb: FormBuilder,
-    private http: HttpClient,
     private furbettoService: FurbettiService,
     private locationService: LocationService,
     private eventsService: EventsService,
@@ -109,7 +141,7 @@ export class AddPersonComponent {
 
   addressError: string;
 
-  onSearch() {
+  onSearch(event) {
     this.addressError = "";
     this.addresses = null;
 
@@ -123,7 +155,11 @@ export class AddPersonComponent {
           console.log("coordinates ", data);
           let results = data["results"];
           if (results.length == 0) {
-            this.addressError = "l'indirizzo risulta errato";
+            this.messageService.add({
+              severity: "error",
+              summary: "Indirizzo non trovato",
+              detail: "Riprova inserendo l'indirizzo corretto",
+            });
           } else if (results.length == 1) {
             this.addresses = results;
             this.selectedAddress = results[0];
@@ -133,6 +169,12 @@ export class AddPersonComponent {
         },
         (error) => {
           console.log("error", error);
+          this.messageService.add({
+            severity: "error",
+            summary: "Errore di comunicazione con google map",
+            detail:
+              "Si e' verificato un errore in google map. Riprova piu' tardi",
+          });
         }
       );
   }
@@ -143,9 +185,10 @@ export class AddPersonComponent {
 
   onSubmit() {
     console.info(this.profileForm.value);
-
+    this.loading = true;
     this.furbettoService.addFurbetto(this.profileForm.value).subscribe(
       (data) => {
+        this.loading = false;
         console.log("Furbetto added", data);
         let loc: IMarker = {
           lat: this.profileForm.get("lat").value,
@@ -169,6 +212,7 @@ export class AddPersonComponent {
         this.selectedAddress = null;
       },
       (error) => {
+        this.loading = false;
         console.log("Furbetto Error", error);
         this.messageService.add({
           severity: "error",
@@ -181,7 +225,7 @@ export class AddPersonComponent {
     );
   }
 
-  onClose() {
+  onClose(event) {
     console.log("Panel closed");
     this.onAdded.emit(null);
   }
