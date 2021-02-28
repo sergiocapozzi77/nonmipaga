@@ -1,11 +1,44 @@
-<p-sidebar
+<p-dialog
+  header="Aggiungi furbetto"
   [(visible)]="showSidebar"
   [baseZIndex]="10000"
-  [style]="{ width: '80%', height: '100%' }"
-  [showCloseIcon]="false"
+  styleClass="infoDialog"
 >
   <app-add-person (onAdded)="furbettoAdded($event)"></app-add-person>
-</p-sidebar>
+</p-dialog>
+
+<p-dialog
+  header="Come funziona?"
+  [(visible)]="showInfo"
+  [baseZIndex]="10000"
+  [style]="{ width: '50vw' }"
+>
+  <p>
+    <img src="/assets/mouse.png" class="textWrap" style="margin-top: -2px" />
+    <b>Hai un inquilino che non ti paga l'affitto?</b><br />
+    Segnalalo e aiutaci a tracciare questi topi di appartamento
+  </p>
+
+  <p style="margin-top: 30px">
+    <img
+      src="/assets/houseLock.png"
+      class="textWrap"
+      style="margin-top: -2px"
+    />
+    <b>Sei in procinto di fittare la tua casa?</b>
+    Controlla la mappa dei furbetti, e vedi se nella tua zona ci sono inquilini
+    che non pagano. Magari uno di loro vuole entrare proprio in casa tua...
+  </p>
+
+  <ng-template pTemplate="footer">
+    <p-button
+      icon="pi pi-check"
+      (click)="showInfo = false"
+      label="Ok"
+      styleClass="p-button-text"
+    ></p-button>
+  </ng-template>
+</p-dialog>
 
 <p-sidebar
   [(visible)]="showFurbettoSidebar"
@@ -21,23 +54,29 @@
 </p-sidebar>
 
 <p-toolbar styleClass="top-toolbar">
-  <div class="p-toolbar-group-left">
-    <label>Il portale per segnalare gli inquilini che non pagano</label>
+  <div class="image-logo">
+    <img src="/assets/home.png" style="height: 55px" />
   </div>
-
-  <div class="p-toolbar-group-right"></div>
-</p-toolbar>
-
-<div style="text-align: center; margin-top: 30px">
+  <button
+    pButton
+    type="button"
+    style="margin-left: 25px"
+    label="Come funziona?"
+    (click)="showInfo = true"
+    class="p-button-raised p-button-help"
+  ></button>
   <button
     pButton
     type="button"
     label="Segnala il tuo inquilino"
+    style="margin-left: 5vw"
     (click)="toggleShowSidebar()"
     class="p-button-raised"
   ></button>
-</div>
 
-<div style="text-align: center; margin-top: 30px">
+  <div class="p-toolbar-group-right"></div>
+</p-toolbar>
+
+<div style="text-align: center; height: calc(100% - 100px)">
   <app-mappa-furbetti></app-mappa-furbetti>
 </div>

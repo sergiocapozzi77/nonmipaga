@@ -58,7 +58,7 @@ export class MappaFurbettiComponent implements OnInit {
   ngOnInit() {
     this.options = {
       center: { lat: 41.9028, lng: 12.4964 },
-      zoom: 5,
+      zoom: 6.5,
     };
 
     this.eventsService.tokenReady.pipe(filter((x) => x)).subscribe(() => {

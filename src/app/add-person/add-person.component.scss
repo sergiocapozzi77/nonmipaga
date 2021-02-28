@@ -23,11 +23,6 @@
   clear: both;
 }
 
-.scrollable {
-  overflow: auto;
-  max-height: 1000px;
-}
-
 .div-margin {
   margin-top: 25px;
   margin-left: 25px;
@@ -63,6 +58,16 @@
   flex-grow: 1;
   align-content: stretch;
   align-items: stretch;
+}
+
+@media screen and (max-width: 1200px) {
+  .containerSub {
+    display: flex; /* or inline-flex */
+    flex-direction: column;
+    flex-grow: 1;
+    align-content: stretch;
+    align-items: stretch;
+  }
 }
 
 .container {

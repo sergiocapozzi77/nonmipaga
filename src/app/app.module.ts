@@ -26,6 +26,7 @@ import { FurbettoInfoComponent } from "./furbetto-info/furbetto-info.component";
 import { InputTextareaModule } from "primeng/inputtextarea";
 import { ScrollPanelModule } from "primeng/scrollpanel";
 import { ToastModule } from "primeng/toast";
+import { DialogModule } from "primeng/dialog";
 
 const routes: Routes = [{ path: "", component: MainViewComponent }];
 
@@ -57,6 +58,7 @@ const routes: Routes = [{ path: "", component: MainViewComponent }];
     InputTextareaModule,
     ScrollPanelModule,
     ToastModule,
+    DialogModule,
     RouterModule.forRoot(routes),
   ],
   providers: [

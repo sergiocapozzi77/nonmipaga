@@ -23,7 +23,7 @@ export class AddPersonComponent {
   profileForm: FormGroup = this.fb.group({
     nome: ["", Validators.required],
     nomeFurbetto: ["", Validators.required],
-    mail: ["", [Validators.email]],
+    mail: ["", [Validators.email, Validators.required]],
     strada: ["", Validators.required],
     comune: ["", Validators.required],
     // cap: ["", Validators.required],

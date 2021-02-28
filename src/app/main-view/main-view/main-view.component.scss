@@ -1,8 +1,39 @@
 ::ng-deep .p-toolbar.top-toolbar {
   height: 70px;
   margin: 0 auto;
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+}
+
+:host ::ng-deep .infoDialog {
+  width: 50% !important;
+}
+
+@media screen and (max-width: 700px) {
+  :host ::ng-deep .infoDialog {
+    width: 100% !important;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .image-logo {
+    visibility: hidden;
+    display: none;
+  }
+}
+
+.toolbarItem {
+  flex-shrink: 1;
 }
 
 // .p-sidebar {
 //   overflow-y: auto;
 // }
+
+.textWrap {
+  float: left;
+  margin: 10px;
+}

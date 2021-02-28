@@ -12,7 +12,7 @@ export class MainViewComponent implements OnInit {
   showFurbettoSidebar = false;
   constructor(private eventService: EventsService) {}
   selectedFurbetto: IFurbetto;
-
+  showInfo = false;
   ngOnInit() {
     this.eventService.selectedFurbetto.subscribe((furbetto) => {
       this.selectedFurbetto = furbetto;
