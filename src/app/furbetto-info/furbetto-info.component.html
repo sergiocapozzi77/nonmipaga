@@ -1,11 +1,6 @@
-<p-card
-  header="Informazioni sul furbetto"
-  [style]="{ width: '35em' }"
-  styleClass="p-card-shadow"
->
-  <ng-template pTemplate="header"> </ng-template>
+<div>
   <div class="p-field div-input">
-    <label for="nome3">Il nome del povero proprietario</label>
+    <label for="nome3">Il nome del proprietario</label>
     <input
       id="nome3"
       type="text"
@@ -29,7 +24,7 @@
   </div>
 
   <div class="p-field div-input">
-    <label for="nomeFurbetto3">Il nome del furbetto parassita</label>
+    <label for="nomeFurbetto3">Il nome dell'inquilino moroso</label>
     <input
       id="nomeFurbetto3"
       type="text"
@@ -41,7 +36,7 @@
   </div>
 
   <div class="p-field div-input left">
-    <label for="info">La descrizione del furbetto</label>
+    <label for="info">La descrizione dell'inquilino</label>
     <textarea
       pInputTextarea
       [(ngModel)]="furbetto.info"
@@ -86,4 +81,4 @@
       disabled="true"
     />
   </div>
-</p-card>
+</div>

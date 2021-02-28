@@ -11,7 +11,7 @@
   header="Come funziona?"
   [(visible)]="showInfo"
   [baseZIndex]="10000"
-  [style]="{ width: '50vw' }"
+  styleClass="infoDialog"
 >
   <p>
     <img src="/assets/mouse.png" class="textWrap" style="margin-top: -2px" />
@@ -40,18 +40,17 @@
   </ng-template>
 </p-dialog>
 
-<p-sidebar
+<p-dialog
+  header="Questa proprieta' ospita un inquilino moroso"
   [(visible)]="showFurbettoSidebar"
   [baseZIndex]="10000"
-  [style]="{ width: '40em' }"
-  [showCloseIcon]="true"
-  position="right"
+  styleClass="infoDialog"
 >
   <app-furbetto-info
     *ngIf="selectedFurbetto"
     [furbetto]="selectedFurbetto"
   ></app-furbetto-info>
-</p-sidebar>
+</p-dialog>
 
 <p-toolbar styleClass="top-toolbar">
   <div class="image-logo">
@@ -77,6 +76,16 @@
   <div class="p-toolbar-group-right"></div>
 </p-toolbar>
 
-<div style="text-align: center; height: calc(100% - 100px)">
-  <app-mappa-furbetti></app-mappa-furbetti>
+<div class="container">
+  <div class="navi">
+    <p-chip
+      label="LA MAPPA DEGLI INQUILINI MOROSI"
+      icon="pi pi-map"
+      styleClass="customChip"
+    ></p-chip>
+  </div>
+
+  <div class="infoi">
+    <app-mappa-furbetti></app-mappa-furbetti>
+  </div>
 </div>

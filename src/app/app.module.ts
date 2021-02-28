@@ -27,7 +27,7 @@ import { InputTextareaModule } from "primeng/inputtextarea";
 import { ScrollPanelModule } from "primeng/scrollpanel";
 import { ToastModule } from "primeng/toast";
 import { DialogModule } from "primeng/dialog";
-
+import { ChipModule } from "primeng/chip";
 const routes: Routes = [{ path: "", component: MainViewComponent }];
 
 @NgModule({
@@ -59,6 +59,7 @@ const routes: Routes = [{ path: "", component: MainViewComponent }];
     ScrollPanelModule,
     ToastModule,
     DialogModule,
+    ChipModule,
     RouterModule.forRoot(routes),
   ],
   providers: [
