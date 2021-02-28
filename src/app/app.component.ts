@@ -1,7 +1,9 @@
+import { environment } from "src/environments/environment";
 import { EventsService } from "./events.service";
 import { HttpClient } from "@angular/common/http";
 import { Component } from "@angular/core";
 import { MessageService } from "primeng/api";
+import { keys } from "src/keys";
 
 @Component({
   selector: "app-root",
@@ -22,7 +24,7 @@ export class AppComponent {
 
   requestToken() {
     console.log("No token");
-    this.http.get("http://localhost:3000/api/token/sign").subscribe(
+    this.http.get(environment.baseUrl + "token/sign").subscribe(
       (res) => {
         console.log(res);
         if (res["token"]) {

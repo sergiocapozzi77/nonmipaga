@@ -1,4 +1,4 @@
-import { EMPTY, throwError } from "rxjs";
+import { throwError } from "rxjs";
 import { Observable } from "rxjs";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
@@ -43,7 +43,6 @@ export class FurbettiService {
       );
     }
     // Return an observable with a user-facing error message.
-    throwError(error);
-    return EMPTY;
+    return throwError(error);
   }
 }

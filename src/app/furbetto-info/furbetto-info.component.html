@@ -40,6 +40,17 @@
     />
   </div>
 
+  <div class="p-field div-input left">
+    <label for="info">La descrizione del furbetto</label>
+    <textarea
+      pInputTextarea
+      [(ngModel)]="furbetto.info"
+      autocomplete="nope"
+      disabled="true"
+      autoResize="autoResize"
+    ></textarea>
+  </div>
+
   <div class="p-field div-input">
     <label for="comune3">Il comune in cui si trova la proprieta'</label>
     <input

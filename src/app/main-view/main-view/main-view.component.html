@@ -1,7 +1,7 @@
 <p-sidebar
   [(visible)]="showSidebar"
   [baseZIndex]="10000"
-  [style]="{ width: '50em' }"
+  [style]="{ width: '80%', height: '100%' }"
   [showCloseIcon]="false"
 >
   <app-add-person (onAdded)="furbettoAdded($event)"></app-add-person>
@@ -21,7 +21,9 @@
 </p-sidebar>
 
 <p-toolbar styleClass="top-toolbar">
-  <div class="p-toolbar-group-left"></div>
+  <div class="p-toolbar-group-left">
+    <label>Il portale per segnalare gli inquilini che non pagano</label>
+  </div>
 
   <div class="p-toolbar-group-right"></div>
 </p-toolbar>
@@ -30,7 +32,7 @@
   <button
     pButton
     type="button"
-    label="Aggiungi furbetto"
+    label="Segnala il tuo inquilino"
     (click)="toggleShowSidebar()"
     class="p-button-raised"
   ></button>
